@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "FBMacro.h"
+
+
+BMKMapManager * _mapManager;
 
 @interface AppDelegate ()
 
@@ -19,6 +23,27 @@
     // Override point for customization after application launch.
     return YES;
 }
+
+
+
+/**
+ *  配置百度地图
+ */
+- (void)initAppConfig
+{
+    /*  启动 BaiduMapManager */
+    _mapManager = [[BMKMapManager alloc] init];
+    BOOL ret = [_mapManager start:BAIDUMAP_ACCESSKEY generalDelegate:self];
+    if (!ret)
+    {
+//        FBLog(@"BaiduMapManager start failed!");
+    }
+}
+
+
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
