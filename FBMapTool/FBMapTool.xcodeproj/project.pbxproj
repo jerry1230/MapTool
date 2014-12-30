@@ -180,7 +180,6 @@
 				C5C426361A52559E00044734 /* ViewController.h */,
 				C5C426371A52559E00044734 /* ViewController.m */,
 				C5C426391A52559E00044734 /* Main.storyboard */,
-				C5C4263C1A52559E00044734 /* Images.xcassets */,
 				C5C4263E1A52559E00044734 /* LaunchScreen.xib */,
 				C5C4262F1A52559E00044734 /* Supporting Files */,
 			);
@@ -191,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				C5C426591A525A8B00044734 /* Images */,
+				C5C4263C1A52559E00044734 /* Images.xcassets */,
 				C5C426301A52559E00044734 /* Info.plist */,
 				C5C426311A52559E00044734 /* main.m */,
 			);

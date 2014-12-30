@@ -19,8 +19,13 @@ BMKMapManager * _mapManager;
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
     // Override point for customization after application launch.
+    
+    
+    [self initBaiduMap];
+    
     return YES;
 }
 
@@ -29,7 +34,7 @@ BMKMapManager * _mapManager;
 /**
  *  配置百度地图
  */
-- (void)initAppConfig
+- (void)initBaiduMap
 {
     /*  启动 BaiduMapManager */
     _mapManager = [[BMKMapManager alloc] init];
@@ -39,10 +44,6 @@ BMKMapManager * _mapManager;
 //        FBLog(@"BaiduMapManager start failed!");
     }
 }
-
-
-
-
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
