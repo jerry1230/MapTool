@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBMapTool/FBMapViewController.m"
-            timestampString = "442053762.000966"
+            timestampString = "442056502.166285"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
-            landmarkName = "-didUpdateBMKUserLocation:"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "-didStopLocatingUser"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
