@@ -14,6 +14,7 @@
 
 @property (nonatomic,strong)BMKMapView *mapView;
 @property (nonatomic,strong)BMKLocationService *locService;
+@property (nonatomic,strong)BMKCircle *circle;
 
 
 @end
@@ -57,24 +58,71 @@
     }
 }
 
-//普通态
--(IBAction)startLocation:(id)sender
+- (void)drawCircle
+{
+    if (_circle == nil) {
+        _circle = [BMKCircle circleWithCenterCoordinate:_mapView.centerCoordinate radius:5000];
+    }
+    [_mapView addOverlay:_circle];
+}
+
+
+-(BOOL)canPerformUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender
+{
+    return YES;
+}
+
+- (IBAction)done:(UIStoryboardSegue *)segue
+{
+    // React to the impending segue
+    // Pull state back, etc.
+}
+
+# pragma mark -
+# pragma mark - Action
+-(IBAction)startLocation:(UIButton *)sender
 {
     NSLog(@"进入普通定位态");
     [_locService startUserLocationService];
     _mapView.showsUserLocation = NO;//先关闭显示的定位图层
     _mapView.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
     _mapView.showsUserLocation = YES;//显示定位图层
-//    [startBtn setEnabled:NO];
-//    [startBtn setAlpha:0.6];
-//    [stopBtn setEnabled:YES];
-//    [stopBtn setAlpha:1.0];
-//    [followHeadBtn setEnabled:YES];
-//    [followHeadBtn setAlpha:1.0];
-//    [followingBtn setEnabled:YES];
-//    [followingBtn setAlpha:1.0];
 }
 
+- (IBAction)addData:(UIButton *)btn
+{
+
+}
+
+- (IBAction)plusBtnClicked:(UIButton *)btn
+{
+    FBLog(@"curent zoomlevel = %f",_mapView.zoomLevel);
+    float currentZoomLevel = _mapView.zoomLevel;
+    if (currentZoomLevel + 1 <= 19)
+    {
+        [_mapView setZoomLevel: currentZoomLevel+1];
+    }
+    else
+    {
+        [_mapView setZoomLevel:19];
+    }
+}
+
+- (IBAction)minusBtnClicked:(UIButton *)btn
+{
+    float currentZoomLevel = _mapView.zoomLevel;
+    if (currentZoomLevel+1 >= 3)
+    {
+        [_mapView setZoomLevel:currentZoomLevel-1];
+    }
+    else
+    {
+        [_mapView setZoomLevel:3];
+    }
+}
+
+#pragma mark -
+#pragma mark - BMKLocationServiceDelegate
 /**
  *在地图View将要启动定位时，会调用此函数
  *@param mapView 地图View
@@ -103,6 +151,11 @@
     //    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     [_mapView updateLocationData:userLocation];
     _mapView.centerCoordinate = userLocation.location.coordinate;
+    
+    //停止定位
+    [_locService stopUserLocationService];
+    //    _mapView.showsUserLocation = NO;
+    [self drawCircle];//画圆
 }
 
 /**
@@ -124,9 +177,8 @@
     NSLog(@"location error");
 }
 
-
+#pragma mark -
 #pragma mark - BMKMapViewDelegate
-
 - (void)mapViewDidFinishLoading:(BMKMapView *)mapView {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"BMKMapView控件初始化完成" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
     [alert show];
@@ -140,4 +192,20 @@
 - (void)mapview:(BMKMapView *)mapView onDoubleClick:(CLLocationCoordinate2D)coordinate {
     NSLog(@"map view: double click");
 }
+
+//根据overlay生成对应的View
+- (BMKOverlayView *)mapView:(BMKMapView *)mapView viewForOverlay:(id <BMKOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[BMKCircle class]])
+    {
+        BMKCircleView* circleView = [[BMKCircleView alloc] initWithOverlay:overlay];
+        circleView.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+        circleView.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
+        circleView.lineWidth = 5.0;
+        
+        return circleView;
+    }
+    return nil;
+}
+
 @end
