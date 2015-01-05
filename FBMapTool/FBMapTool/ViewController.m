@@ -39,6 +39,14 @@
 # pragma mark - Action
 - (IBAction)trackAction:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_DATAOK object:self.radiusTF.text];
+    if ([self.radiusTF.text intValue]>40000)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您输入的距离太远，请重新输入！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_DATAOK object:self.radiusTF.text];
+    }
 }
 @end

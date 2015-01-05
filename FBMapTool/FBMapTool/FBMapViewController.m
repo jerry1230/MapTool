@@ -131,7 +131,32 @@
 - (void)dataOK:(NSNotification *)notification
 {
     NSString *radius =notification.object;
+    if ([radius intValue]<=2000)
+    {
+        _mapView.zoomLevel = 17-([radius intValue]-1)/500;
+    }
+    else if([radius intValue]<=4000&&[radius intValue]>2000)
+    {
+        _mapView.zoomLevel = 19-([radius intValue]-1)/500;
+    }
+    else if([radius intValue]<=6000&&[radius intValue]>4000)
+    {
+        _mapView.zoomLevel = 22-([radius intValue]-1)/500;
+    }
+    else if([radius intValue]<=8000&&[radius intValue]>6000)
+    {
+        _mapView.zoomLevel = 26-([radius intValue]-1)/500;
+    }
+    else if([radius intValue]<=10000&&[radius intValue]>8000)
+    {
+        _mapView.zoomLevel = 30-([radius intValue]-1)/500;
+    }
+    else if([radius intValue]>10000)
+    {
+        _mapView.zoomLevel = 11;
+    }
     [self drawCircle:[radius intValue]];
+    FBLog(@"_mapView.zoomLevel=%f",_mapView.zoomLevel);
 }
 
 # pragma mark -
@@ -198,7 +223,6 @@
 
 - (IBAction)plusBtnClicked:(UIButton *)btn
 {
-    FBLog(@"curent zoomlevel = %f",_mapView.zoomLevel);
     float currentZoomLevel = _mapView.zoomLevel;
     if (currentZoomLevel + 1 <= 19)
     {
@@ -289,6 +313,17 @@
 
 - (void)mapview:(BMKMapView *)mapView onDoubleClick:(CLLocationCoordinate2D)coordinate {
     NSLog(@"map view: double click");
+}
+
+/**
+ *地图区域改变完成后会调用此接口
+ *@param mapview 地图View
+ *@param animated 是否动画
+ */
+- (void)mapView:(BMKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    FBLog(@"RegionDidChange mapView.zoomLevel=%f",_mapView.zoomLevel);
+
 }
 
 //根据overlay生成对应的View
