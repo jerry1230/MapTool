@@ -48,3 +48,11 @@
 #define FB_QIANMING @"signature"
 
 
+#define NOTI_DATAOK @"userInputDataOK"
+
+
+
+
+
+
+

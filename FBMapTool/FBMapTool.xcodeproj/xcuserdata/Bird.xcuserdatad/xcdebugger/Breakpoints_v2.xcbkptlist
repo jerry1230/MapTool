@@ -10,12 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBMapTool/FBMapViewController.m"
-            timestampString = "442056502.166285"
+            timestampString = "442121752.558504"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "-didStopLocatingUser"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-drawCircle:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FBMapTool/FBMapViewController.m"
+            timestampString = "442121787.234589"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "-mapView:viewForOverlay:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

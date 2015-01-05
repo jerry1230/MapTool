@@ -60,6 +60,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="trackAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="gDL-3n-Dy9"/>
                                     <segue destination="HeL-ph-maq" kind="unwind" unwindAction="done:" id="9Gl-su-632"/>
                                 </connections>
                             </button>
@@ -98,10 +99,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="deviationTF" destination="Ghi-ft-0Vp" id="SMS-wx-ext"/>
+                        <outlet property="radiusTF" destination="BNU-r9-Hu4" id="dc8-Xm-Rf5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1294" y="-2463"/>
+            <point key="canvasLocation" x="-1275" y="-2444"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="MFP-rJ-Ls0">
@@ -122,7 +127,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="addData:" destination="cnL-Cl-ROx" eventType="touchUpInside" id="fbt-KH-049"/>
                                             <segue destination="vXZ-lx-hvc" kind="modal" id="6UL-lw-mSd"/>
                                         </connections>
                                     </button>
@@ -169,7 +173,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jHT-W7-LZv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="HeL-ph-maq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1583" y="-2157"/>
+            <point key="canvasLocation" x="-1670" y="-2444"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qvd-UU-R6H">

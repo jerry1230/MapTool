@@ -7,8 +7,16 @@
 //
 
 #import "ViewController.h"
-
+#import "FBMacro.h"
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *radiusTF;
+
+@property (weak, nonatomic) IBOutlet UITextField *deviationTF;
+
+- (IBAction)trackAction:(id)sender;
+
+
+
 
 @end
 
@@ -19,11 +27,6 @@
     [super viewDidLoad];
 //Test
     
-    
-    
-
-
-
 
 
 }
@@ -32,6 +35,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
+# pragma mark -
+# pragma mark - Action
+- (IBAction)trackAction:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_DATAOK object:self.radiusTF.text];
+}
 @end

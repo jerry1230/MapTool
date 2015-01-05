@@ -14,7 +14,7 @@
 
 @property (nonatomic,strong)BMKMapView *mapView;
 @property (nonatomic,strong)BMKLocationService *locService;
-@property (nonatomic,strong)BMKCircle *circle;
+//@property (nonatomic,strong)BMKCircle *circle;
 
 
 @end
@@ -25,7 +25,7 @@
     //适配ios7
     if(IOS7_OR_LATER)
     {
-        self.edgesForExtendedLayout=UIRectEdgeNone;
+        self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, [FBUtils GetScreeWidth], [FBUtils GetScreeHeight])];
     _mapView.mapType = BMKMapTypeStandard;
@@ -36,7 +36,16 @@
     [self.view addSubview:_mapView];
     [self.view sendSubviewToBack:_mapView];
     _locService = [[BMKLocationService alloc]init];
-
+    [_locService startUserLocationService];
+    
+    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
+    _mapView.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
+    _mapView.showsUserLocation = YES;//显示定位图层
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dataOK:)
+                                                 name:NOTI_DATAOK
+                                               object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -56,16 +65,15 @@
     if (_mapView) {
         _mapView = nil;
     }
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTI_DATAOK object:nil];
 }
 
-- (void)drawCircle
+- (void)drawCircle:(int)radius
 {
-    if (_circle == nil) {
-        _circle = [BMKCircle circleWithCenterCoordinate:_mapView.centerCoordinate radius:5000];
-    }
-    [_mapView addOverlay:_circle];
+    BMKCircle *circle = [BMKCircle circleWithCenterCoordinate:_mapView.centerCoordinate radius:radius];
+    [_mapView addOverlay:circle];
 }
-
 
 -(BOOL)canPerformUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender
 {
@@ -78,6 +86,29 @@
     // Pull state back, etc.
 }
 
+//删除标注
+-(void)deleteCircles
+{
+    //删除圆形覆盖物
+    for (UIView *view in self.view.subviews)
+    {
+        if ([view isKindOfClass:[BMKCircle class]])
+        {
+            BMKCircle *circle = (BMKCircle *)view;
+            [_mapView removeOverlay:circle];
+            circle=nil;
+        }
+    }
+}
+
+# pragma mark -
+# pragma mark - NSNotification
+- (void)dataOK:(NSNotification *)notification
+{
+    NSString *radius =notification.object;
+    [self drawCircle:[radius intValue]];
+}
+
 # pragma mark -
 # pragma mark - Action
 -(IBAction)startLocation:(UIButton *)sender
@@ -87,11 +118,6 @@
     _mapView.showsUserLocation = NO;//先关闭显示的定位图层
     _mapView.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
     _mapView.showsUserLocation = YES;//显示定位图层
-}
-
-- (IBAction)addData:(UIButton *)btn
-{
-////////////
 }
 
 - (IBAction)plusBtnClicked:(UIButton *)btn
@@ -155,7 +181,6 @@
     //停止定位
     [_locService stopUserLocationService];
     //    _mapView.showsUserLocation = NO;
-    [self drawCircle];//画圆
 }
 
 /**
