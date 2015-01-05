@@ -14,14 +14,15 @@
 
 @property (nonatomic,strong)BMKMapView *mapView;
 @property (nonatomic,strong)BMKLocationService *locService;
-//@property (nonatomic,strong)BMKCircle *circle;
-
+@property (nonatomic,strong)NSMutableArray *circleArray;
 
 @end
 @implementation FBMapViewController
 
 - (void)viewDidLoad
 {
+    self.title = @"大侦探";
+    self.circleArray = [[NSMutableArray alloc] initWithObjects:nil];
     //适配ios7
     if(IOS7_OR_LATER)
     {
@@ -30,9 +31,11 @@
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, [FBUtils GetScreeWidth], [FBUtils GetScreeHeight])];
     _mapView.mapType = BMKMapTypeStandard;
     _mapView.zoomLevel = 14;
+    _mapView.showMapScaleBar = YES; 
     [_mapView setTrafficEnabled:NO];
     [_mapView setBuildingsEnabled:YES];
     [_mapView setBaiduHeatMapEnabled:NO];
+    
     [self.view addSubview:_mapView];
     [self.view sendSubviewToBack:_mapView];
     _locService = [[BMKLocationService alloc]init];
@@ -73,6 +76,7 @@
 {
     BMKCircle *circle = [BMKCircle circleWithCenterCoordinate:_mapView.centerCoordinate radius:radius];
     [_mapView addOverlay:circle];
+    [self.circleArray addObject:circle];
 }
 
 -(BOOL)canPerformUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender
@@ -86,21 +90,6 @@
     // Pull state back, etc.
 }
 
-//删除标注
--(void)deleteCircles
-{
-    //删除圆形覆盖物
-    for (UIView *view in self.view.subviews)
-    {
-        if ([view isKindOfClass:[BMKCircle class]])
-        {
-            BMKCircle *circle = (BMKCircle *)view;
-            [_mapView removeOverlay:circle];
-            circle=nil;
-        }
-    }
-}
-
 # pragma mark -
 # pragma mark - NSNotification
 - (void)dataOK:(NSNotification *)notification
@@ -110,14 +99,52 @@
 }
 
 # pragma mark -
+# pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        //删除圆形覆盖物
+        for (NSObject *obj in self.circleArray)
+        {
+            if ([obj isKindOfClass:[BMKCircle class]])
+            {
+                BMKCircle *circle = (BMKCircle *)obj;
+                [_mapView removeOverlay:circle];
+                circle=nil;
+            }
+        }
+        [self.circleArray removeAllObjects];
+    }
+}
+
+# pragma mark -
 # pragma mark - Action
 -(IBAction)startLocation:(UIButton *)sender
 {
-    NSLog(@"进入普通定位态");
-    [_locService startUserLocationService];
-    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
-    _mapView.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
-    _mapView.showsUserLocation = YES;//显示定位图层
+    sender.selected = !sender.selected;
+    if (sender.selected)
+    {
+        FBLog(@"停止定位");
+        [_locService stopUserLocationService];
+        _mapView.showsUserLocation = NO;
+        [sender setTitle:@"开始定位" forState:UIControlStateNormal];
+    }
+    else
+    {
+        FBLog(@"进入普通定位态");
+        [sender setTitle:@"停止定位" forState:UIControlStateNormal];
+        [_locService startUserLocationService];
+        _mapView.showsUserLocation = NO;//先关闭显示的定位图层
+        _mapView.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
+        _mapView.showsUserLocation = YES;//显示定位图层
+    }
+}
+
+//删除标注
+-(IBAction)deleteCircles:(UIButton *)btn
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定删掉所有追踪记录吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    [alert show];
 }
 
 - (IBAction)plusBtnClicked:(UIButton *)btn
@@ -177,10 +204,6 @@
     //    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     [_mapView updateLocationData:userLocation];
     _mapView.centerCoordinate = userLocation.location.coordinate;
-    
-    //停止定位
-    [_locService stopUserLocationService];
-    //    _mapView.showsUserLocation = NO;
 }
 
 /**
@@ -205,9 +228,7 @@
 #pragma mark -
 #pragma mark - BMKMapViewDelegate
 - (void)mapViewDidFinishLoading:(BMKMapView *)mapView {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"BMKMapView控件初始化完成" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-    [alert show];
-    alert = nil;
+    FBLog(@"BMKMapView控件初始化完成");
 }
 
 - (void)mapView:(BMKMapView *)mapView onClickedMapBlank:(CLLocationCoordinate2D)coordinate {
