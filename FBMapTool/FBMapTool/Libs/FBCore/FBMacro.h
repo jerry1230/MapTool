@@ -8,14 +8,14 @@
 
 
 //部分常用颜色
-#define kColorClear         [UIColor clearColor]
-#define kColorWhite         [UIColor whiteColor]
-#define kColorBlack         [UIColor blackColor]
-#define kColorYellow        [UIColor yellowColor]
-#define kColorBlue          [UIColor blueColor]
+#define lColorClear         [UIColor clearColor]
+#define lColorWhite         [UIColor whiteColor]
+#define lColorBlack         [UIColor blackColor]
+#define lColorYellow        [UIColor yellowColor]
+#define lColorBlue          [UIColor blueColor]
 
 
-#define kUserDefaut  [NSUserDefaults standardUserDefaults]
+#define LUserDefaut  [NSUserDefaults standardUserDefaults]
 
 
 #define IOS7_OR_LATER ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending)

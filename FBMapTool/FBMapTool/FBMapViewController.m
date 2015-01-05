@@ -10,6 +10,30 @@
 #import "BMapKit.h"
 #import "FBMacro.h"
 #import "FBUtils.h"
+
+#define HAS_LOCATION @"USERLOCATION_GOT"
+#define FB_LATITUDE @"USER_LAST_LATITUDE"
+#define FB_LONGTITUDE @"USER_LAST_LONGTITUDE"
+
+/*
+ *  CLLocationCoordinate2D
+ *
+ *  Discussion:
+ *    A structure that contains a geographical coordinate.
+ *
+ *  Fields:
+ *    latitude:
+ *      The latitude in degrees.
+ *    longitude:
+ *      The longitude in degrees.
+ */
+//typedef struct {
+//    CLLocationDegrees latitude;
+//    CLLocationDegrees longitude;
+//} CLLocationCoordinate2D;
+
+
+
 @interface FBMapViewController()<BMKMapViewDelegate,BMKLocationServiceDelegate>
 
 @property (nonatomic,strong)BMKMapView *mapView;
@@ -35,9 +59,17 @@
     [_mapView setTrafficEnabled:NO];
     [_mapView setBuildingsEnabled:YES];
     [_mapView setBaiduHeatMapEnabled:NO];
-    
     [self.view addSubview:_mapView];
     [self.view sendSubviewToBack:_mapView];
+    
+    if ([LUserDefaut boolForKey:HAS_LOCATION])
+    {
+        CLLocationCoordinate2D coor;
+        coor.latitude = [LUserDefaut floatForKey:FB_LATITUDE];
+        coor.longitude = [LUserDefaut floatForKey:FB_LONGTITUDE];
+        _mapView.centerCoordinate = coor;
+    }
+    
     _locService = [[BMKLocationService alloc]init];
     [_locService startUserLocationService];
     
@@ -204,6 +236,9 @@
     //    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     [_mapView updateLocationData:userLocation];
     _mapView.centerCoordinate = userLocation.location.coordinate;
+    [LUserDefaut setBool:YES forKey:HAS_LOCATION];
+    [LUserDefaut setFloat:userLocation.location.coordinate.latitude forKey:FB_LATITUDE];
+    [LUserDefaut setFloat:userLocation.location.coordinate.longitude forKey:FB_LONGTITUDE];
 }
 
 /**

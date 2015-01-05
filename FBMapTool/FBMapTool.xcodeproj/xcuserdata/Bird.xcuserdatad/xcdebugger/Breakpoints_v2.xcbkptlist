@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBMapTool/FBMapViewController.m"
-            timestampString = "442128847.306568"
+            timestampString = "442130843.828404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "-drawCircle:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBMapTool/FBMapViewController.m"
-            timestampString = "442129928.680808"
+            timestampString = "442130843.828404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "-mapView:viewForOverlay:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBMapTool/FBMapViewController.m"
-            timestampString = "442129928.680808"
+            timestampString = "442130843.828404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "-deleteCircles:"
             landmarkType = "5">
          </BreakpointContent>
