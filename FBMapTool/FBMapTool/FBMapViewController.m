@@ -39,12 +39,15 @@
 @property (nonatomic,strong)BMKMapView *mapView;
 @property (nonatomic,strong)BMKLocationService *locService;
 @property (nonatomic,strong)NSMutableArray *circleArray;
+- (IBAction)mapTypeSwitchAction:(UIButton *)sender;
 
 @end
 @implementation FBMapViewController
 
 - (void)viewDidLoad
 {
+//    self.navigationController.navigationBarHidden = YES;
+    
     self.title = @"大侦探";
     self.circleArray = [[NSMutableArray alloc] initWithObjects:nil];
     //适配ios7
@@ -52,7 +55,8 @@
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, [FBUtils GetScreeWidth], [FBUtils GetScreeHeight])];
+    int height = IOS7_OR_LATER?93:49;
+    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, [FBUtils GetScreeWidth], [FBUtils GetScreeHeight]-height)];
     _mapView.mapType = BMKMapTypeStandard;
     _mapView.zoomLevel = 14;
     _mapView.showMapScaleBar = YES; 
@@ -151,6 +155,19 @@
 
 # pragma mark -
 # pragma mark - Action
+- (IBAction)mapTypeSwitchAction:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    if (sender.selected)
+    {
+        _mapView.mapType = BMKMapTypeSatellite;
+    }
+    else
+    {
+        _mapView.mapType = BMKMapTypeStandard;
+    }
+}
+
 -(IBAction)startLocation:(UIButton *)sender
 {
     sender.selected = !sender.selected;
@@ -288,5 +305,4 @@
     }
     return nil;
 }
-
 @end
