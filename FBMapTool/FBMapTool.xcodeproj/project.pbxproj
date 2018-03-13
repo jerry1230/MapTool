@@ -386,6 +386,7 @@
 				TargetAttributes = {
 					C5C4262B1A52559E00044734 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = SLRDBXE3XE;
 					};
 					C5C426441A52559E00044734 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -567,6 +568,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = SLRDBXE3XE;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FBMapTool/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -582,6 +585,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = SLRDBXE3XE;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FBMapTool/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
