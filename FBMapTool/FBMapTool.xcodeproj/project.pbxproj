@@ -390,6 +390,7 @@
 					};
 					C5C426441A52559E00044734 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = SLRDBXE3XE;
 						TestTargetID = C5C4262B1A52559E00044734;
 					};
 				};
@@ -571,7 +572,7 @@
 				DEVELOPMENT_TEAM = SLRDBXE3XE;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FBMapTool/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -588,7 +589,7 @@
 				DEVELOPMENT_TEAM = SLRDBXE3XE;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FBMapTool/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -602,6 +603,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = SLRDBXE3XE;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -621,6 +623,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = SLRDBXE3XE;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
